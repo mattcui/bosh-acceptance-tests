@@ -117,6 +117,10 @@ module Bat
       @spec['properties']['vip'] || static_ip
     end
 
+    def public_ip_v2
+      (`bosh vms bat 2>&1|grep -v index| grep '|' |head -1 | tr -s '|' ' ' |awk '{print $NF}'`).chomp
+    end
+
     def use_static_ip
       @spec['properties']['use_static_ip'] = true
     end
