@@ -118,7 +118,7 @@ module Bat
     end
 
     def public_ip_v2
-      (`bosh vms bat 2>&1|grep -v index| grep '|' |head -1 | tr -s '|' ' ' |awk '{print $NF}'`).chomp
+      (`bundle exec bosh vms bat 2>&1|grep -v index| grep '|' |head -1 | tr -s '|' ' ' |awk '{print $NF}'`).chomp
     end
 
     def use_static_ip
