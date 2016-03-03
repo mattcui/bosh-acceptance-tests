@@ -118,7 +118,17 @@ module Bat
     end
 
     def public_ip_v2
-      (`bundle exec bosh vms bat 2>&1|grep -v index| grep '|' |head -1 | tr -s '|' ' ' |awk '{print $NF}'`).chomp
+      output = @bosh_runner.bosh('vms bat').output
+      table = output.lines.grep(/\|/)
+
+      table = table.map { |line| line.split('|').map(&:strip).reject(&:empty?) }
+      table.shift
+
+      output = []
+      table.each do |row|
+        output << row[3]
+      end
+      output[0]
     end
 
     def use_static_ip
