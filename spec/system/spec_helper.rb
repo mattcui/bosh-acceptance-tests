@@ -65,7 +65,6 @@ RSpec.configure do |config|
   config.before(:all) do
     @logger = logger
     @env = env
-    logger.info("env is: '#{@env.to_a}'")
     @requirements = requirements
     @bosh_api = bosh_api
     @bosh_runner = bosh_runner
