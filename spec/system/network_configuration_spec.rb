@@ -30,7 +30,7 @@ describe 'network configuration' do
       expect(address).to eq(public_ip_v2)
     end
 
-    xit 'reverse looks up instance' do
+    it 'reverse looks up instance' do
       names = dns.getnames(public_ip_v2)
       expect(names.to_s).to include("0.batlight.default.bat.#{bosh_tld}.")
     end
