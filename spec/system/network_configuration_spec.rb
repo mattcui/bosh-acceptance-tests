@@ -19,7 +19,7 @@ describe 'network configuration' do
 
   describe 'resolving DNS entries', dns: true do
     let(:dns) { Resolv::DNS.new(nameserver: @env.dns_host) }
-
+    
     @logger.info("WJQ: dns host: '#{@env.dns_host}'")
 
     it 'forward looks up instance' do
@@ -30,7 +30,7 @@ describe 'network configuration' do
       expect(address).to eq(public_ip_v2)
     end
 
-    it 'reverse looks up instance' do
+    xit 'reverse looks up instance' do
       names = dns.getnames(public_ip_v2)
       expect(names.to_s).to include("0.batlight.default.bat.#{bosh_tld}.")
     end
