@@ -1,6 +1,6 @@
 require 'system/spec_helper'
 
-fdescribe 'with release and stemcell and subsequent deployments' do
+describe 'with release and stemcell and subsequent deployments' do
   before(:all) do
     @requirements.requirement(@requirements.release)
     @requirements.requirement(@requirements.stemcell)
