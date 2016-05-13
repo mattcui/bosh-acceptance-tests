@@ -106,6 +106,7 @@ module Bat
         end
       end
 
+      command += command + " && sleep 1"
       bosh_safe("ssh #{job} #{index} '#{command}' #{bosh_ssh_options}")
     end
 
