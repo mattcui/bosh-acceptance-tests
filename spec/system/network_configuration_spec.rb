@@ -14,7 +14,7 @@ describe 'network configuration' do
   end
 
   after(:all) do
-    @requirements.cleanup(deployment)
+#    @requirements.cleanup(deployment)
   end
 
   describe 'resolving DNS entries' do
