@@ -24,9 +24,15 @@ module Bat
       begin
         @logger.info("Running bosh command --> #{command}")
         result = Bosh::Exec.sh(command, options)
-      rescue Bosh::Exec::Error => e
-        @logger.info("Bosh command failed: #{e.output}")
-        raise
+      rescue Exception => e
+        if e.is_a?(Bosh::Exec::Error)
+          @logger.info("Bosh command failed: #{e.output}")
+        end
+        if e.message.include?('closed stream')
+          @logger.info("Error is close stream. Ignoring.... #{e.message}")
+        else
+          raise
+        end
       end
 
       @logger.info(result.output)
