@@ -467,7 +467,7 @@ describe 'service configuration', :type => 'os'  do
           expect(ssh(public_ip, 'vcap', cmd, ssh_options)).to eq("SUCCESS\n")
 
           # wait for monit to come up again
-          monit_running_on_instance(public_ip)
+          monit_running_on_instance(public_ip_v2)
 
           # kill batlight
           cmd = "#{sudo} pkill batlight && echo 'SUCCESS'"
