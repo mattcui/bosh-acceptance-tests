@@ -42,7 +42,7 @@ describe 'network configuration' do
 
       bosh('logs batlight 0 --agent --dir /tmp')
 
-      cmd = 'dig +short 0.batlight.static.bat.bosh a 0.batlight.static.bat.microbosh a'
+      cmd = 'dig +short 0.batlight.default.bat.bosh a 0.batlight.default.bat.microbosh a'
       expect(bosh_ssh('batlight', 0, cmd).output).to include(public_ip_v2)
     end
   end
@@ -64,7 +64,7 @@ describe 'network configuration' do
     end
   end
 
-  context 'when using manual networking', manual_networking: true do
+  xcontext 'when using manual networking', manual_networking: true do
     it 'changes static IP address', changing_static_ip: true do
       use_second_static_ip
       deployment = with_deployment
