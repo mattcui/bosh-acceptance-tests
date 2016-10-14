@@ -69,7 +69,7 @@ describe 'with release and stemcell and subsequent deployments' do
     end
   end
 
-  xcontext 'with persistent disk size changing', persistent_disk: true do
+  context 'with persistent disk size changing', persistent_disk: true do
     SAVE_FILE = '/var/vcap/store/batarang/save'
 
     before(:all) do
