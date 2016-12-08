@@ -1,4 +1,4 @@
----                                                                                          
+---
 name: <%= properties.name || "bat" %>
 director_uuid: <%= properties.uuid %>
 
@@ -8,25 +8,25 @@ releases:
 
 compilation:
   workers: 1
-  network: default 
+  network: default
   reuse_compilation_vms: true
   cloud_properties:
     Bosh_ip: <%= properties.cloud_properties.bosh_ip %>
     StartCpus: 4
     MaxMemory: 8192
+    EphemeralDiskSize: 100
     Datacenter:
-      Name: lon02
-    VmNamePrefix: <%= properties.cloud_properties.vm_name_prefix %>
+      Name: <%= properties.cloud_properties.data_center %>
+    VmNamePrefix: bat-softlayer-worker-
     Domain: softlayer.com
     HourlyBillingFlag: true
+    LocalDiskFlag: false
     PrimaryNetworkComponent:
       NetworkVlan:
         Id: <%= properties.cloud_properties.public_vlan_id %>
     PrimaryBackendNetworkComponent:
       NetworkVlan:
         Id: <%= properties.cloud_properties.private_vlan_id %>
-    NetworkComponents:
-    - MaxSpeed: 1000
 
 update:
   canaries: <%= properties.canaries || 1 %>
@@ -46,12 +46,6 @@ networks:
     - cf
 <% end %>
 
-disk_pools:
-- name: dp_20480
-  disk_size: 20480
-  cloud_properties:
-    consistent_performance_iscsi: true
-
 resource_pools:
   - name: common
     network: default
@@ -69,14 +63,19 @@ resource_pools:
       VmNamePrefix: <%= properties.cloud_properties.vm_name_prefix %>
       Domain: <%= properties.cloud_properties.domain %>
       HourlyBillingFlag: true
+      LocalDiskFlag: false
       PrimaryNetworkComponent:
         NetworkVlan:
           Id: <%= properties.cloud_properties.public_vlan_id %>
       PrimaryBackendNetworkComponent:
         NetworkVlan:
           Id: <%= properties.cloud_properties.private_vlan_id %>
-      NetworkComponents:
-      - MaxSpeed: 1000
+    <% if properties.password %>
+    env:
+      bosh:
+        password: <%= properties.password %>
+        keep_root_password: true
+    <% end %>
 
 jobs:
   - name: <%= properties.job || "batlight" %>
