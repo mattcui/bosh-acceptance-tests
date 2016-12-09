@@ -40,10 +40,6 @@ networks:
 - name: default
   type: dynamic
   dns: <%= p('dns').inspect %>
-  cloud_properties:
-    security_groups:
-    - default
-    - cf
 <% end %>
 
 resource_pools:

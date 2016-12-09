@@ -23,6 +23,8 @@ describe 'network configuration' do
     @logger.info("WJQ: dns host: '#{@env.dns_host}'")
 
     it 'forward looks up instance' do
+      @logger.info("dns_host '#{@env.dns_host}'")
+      @logger.info("bosh_tld '#{bosh_tld}'")
       address = nil
       expect {
         address = dns.getaddress("0.batlight.default.bat.#{bosh_tld}").to_s
@@ -64,7 +66,7 @@ describe 'network configuration' do
     end
   end
 
-  xcontext 'when using manual networking', manual_networking: true do
+  context 'when using manual networking', manual_networking: true do
     it 'changes static IP address', changing_static_ip: true do
       use_second_static_ip
       deployment = with_deployment
