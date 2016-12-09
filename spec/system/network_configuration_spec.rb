@@ -23,8 +23,6 @@ describe 'network configuration' do
     @logger.info("WJQ: dns host: '#{@env.dns_host}'")
 
     it 'forward looks up instance' do
-      @logger.info("dns_host '#{@env.dns_host}'")
-      @logger.info("bosh_tld '#{bosh_tld}'")
       address = nil
       expect {
         address = dns.getaddress("0.batlight.default.bat.#{bosh_tld}").to_s

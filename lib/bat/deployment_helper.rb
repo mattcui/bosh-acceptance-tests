@@ -126,7 +126,7 @@ module Bat
 
       output = []
       table.each do |row|
-        output << row[3]
+        output << row[4]
       end
       output[0]
     end
